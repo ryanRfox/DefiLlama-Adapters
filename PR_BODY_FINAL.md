@@ -11,17 +11,21 @@ Acre
 https://x.com/AcreBTC
 
 ##### List of audit links if any:
-- [Thesis Defense - Acre Smart Contracts (May 2024)](https://github.com/Thesis-Defense/Security-Audit-Reports/blob/main/PDFs/240517_Thesis_Defense-Acre_Smart_Contracts_Security_Audit_Report.pdf)
-- [Thesis Defense - Mezo-Acre stBTC (Aug 2024)](https://github.com/Thesis-Defense/Security-Audit-Reports/blob/main/PDFs/240808_Thesis_Defense-Mezo-Acre_stBTC_Smart_Contracts_Security_Audit_Report.pdf)
-- [Immunefi Boost Audit Competition (Aug-Sep 2024)](https://immunefi.com/audit-competition/boost-acre/scope/)
+acreBTC:
+- [Côme du Crest - Acre Audit (Aug 2025)](https://drive.google.com/file/d/1dbK5gCyRQURiPJloJXZOTNLaowtaeMip/view) — acreBTC vault, MidasAllocator, WithdrawalQueue, AcreAdapter (Midas), BitcoinDepositorV2, BitcoinRedeemerV2, stBTC migration. Found and fixed 2 High, 1 Medium severity issues.
 
-Note: These audits cover V1 (stBTC) contracts. V2 (acreBTC) contracts are verified on Etherscan and open-source but have no published audit report yet.
+stBTC (legacy):
+- [Thesis Defense - Acre Smart Contracts (May 2024)](https://github.com/Thesis-Defense/Security-Audit-Reports/blob/main/PDFs/240517_Thesis_Defense-Acre_Smart_Contracts_Security_Audit_Report.pdf) — stBTC vault, MezoAllocator, BitcoinDepositor, BitcoinRedeemer
+- [Thesis Defense - Mezo-Acre stBTC (Aug 2024)](https://github.com/Thesis-Defense/Security-Audit-Reports/blob/main/PDFs/240808_Thesis_Defense-Mezo-Acre_stBTC_Smart_Contracts_Security_Audit_Report.pdf) — stBTC integration with Mezo Portal
+- [Immunefi Boost Audit Competition (Aug-Sep 2024)](https://immunefi.com/audit-competition/boost-acre/scope/) — Competitive security review of V1 stBTC contracts
+
+
 
 ##### Website Link:
 https://acre.fi
 
 ##### Logo (High resolution, will be shown with rounded borders):
-https://raw.githubusercontent.com/acre-btc/acre/main/dapp/public/acre.svg
+<!-- Paste Media-Kit/PNG/Acre-symbol-Red.png into this field when creating the PR on GitHub. It will auto-host as a github.com/user-attachments URL. -->
 
 ##### Current TVL:
 ~$5.30M (~78 tBTC)
