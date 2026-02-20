@@ -227,7 +227,62 @@ Yield propagation depends entirely on the acremBTC1 oracle (`CustomAggregatorV3C
 
 ---
 
-## 7. Dune Dashboard Feasibility
+## 7. Audit Coverage
+
+### V1 stBTC
+
+The V1 contracts were audited before launch:
+- [Thesis / Keep ECDSA audit](https://github.com/trailofbits/publications/blob/master/reviews/thesis-tbtc-and-keep.pdf) (Trail of Bits, 2020) — covers the tBTC bridge and staking primitives Acre V1 inherited
+- [stBTC / Acre V1 audit](https://github.com/thesis/acre/tree/main/audits) — available in the Acre repo; covers the original stBTC vault, Dispatcher, and MezoAllocator contracts
+
+### V2 acreBTC — Côme du Crest Audit (Aug 2025)
+
+Source: [CdC Security Review (PDF)](https://drive.google.com/file/d/1dbK5gCyRQURiPJloJXZOTNLaowtaeMip/view)
+
+**Auditor**: Côme du Crest (independent security researcher)
+**Date**: August 19, 2025
+**Scope**: V2 contracts at commit `27c5f5f`, fixes verified at commit `efdae0a`, plus the Midas AcreAdapter
+
+#### Contracts in scope
+
+| Contract | Notes |
+|----------|-------|
+| acreBTC.sol | ERC-4626 vault (V2 core) |
+| MidasAllocator.sol | Routes idle tBTC to Midas |
+| WithdrawalQueue.sol | 14-day cooldown queue |
+| stBTC.sol | Migration path from V1 |
+| BitcoinDepositorV2 | tBTC bridge deposit handler |
+| BitcoinRedeemerV2 | tBTC bridge redemption handler |
+| ERC4626Fees | Exit fee logic |
+| ERC4626NonFungibleWithdrawals | NFT-based withdrawal receipts |
+| PausableOwnable | Pause/ownership mixin |
+| Maintainable | Maintainer role access control |
+| AcreMultiAssetVault | Multi-asset vault extension |
+| FeesReimbursementPool | Fee reimbursement mechanism |
+| MezoAllocator | Legacy allocator (V1 compatibility) |
+
+#### Findings summary
+
+| Severity | Count | Status |
+|----------|-------|--------|
+| High | 2 | Fixed |
+| Medium | 1 | Fixed |
+| Low | 2 | Acknowledged |
+| Informational | 3 | — |
+
+All High and Medium findings were fixed in commit `efdae0a` and verified by the auditor.
+
+### Remaining gap: Midas oracle
+
+The `CustomAggregatorV3CompatibleFeedGrowth` oracle contract (`0xA537EF03...`) was **not in scope** for the CdC audit. This is the contract that auto-interpolates acremBTC1 yield between weekly Ankura updates (see Section 3). It remains unaudited by a third party. Given that yield propagation depends entirely on this oracle (see Section 6, "Oracle dependency"), this is the most significant remaining audit gap.
+
+### Overall assessment
+
+V2 now has meaningful audit coverage. The CdC review addresses approximately 80% of the risk surface — all core vault logic, the allocator pipeline, withdrawal mechanics, and the migration path from V1. The primary remaining unaudited component is the Midas yield oracle, which is external to Acre's codebase but central to yield accuracy.
+
+---
+
+## 8. Dune Dashboard Feasibility
 
 The discovery of the three operational EOA wallets and the acremBTC1 oracle significantly expands what's trackable on Dune compared to our initial assessment.
 
@@ -274,7 +329,7 @@ With the dashboard addresses, a Dune dashboard can cover most of what the commun
 
 ---
 
-## 8. Community Tracking Ideas
+## 9. Community Tracking Ideas
 
 ### Quick wins (days)
 
@@ -298,7 +353,7 @@ With the dashboard addresses, a Dune dashboard can cover most of what the commun
 
 ---
 
-## 9. DefiLlama Adapter Assessment
+## 10. DefiLlama Adapter Assessment
 
 The adapter at `projects/acre/index.js` is **correct and ready to submit**.
 
@@ -331,7 +386,7 @@ The `doublecounted: true` flag is essential because the same tBTC is counted by:
 
 ---
 
-## 10. Key Takeaways
+## 11. Key Takeaways
 
 1. **The adapter is correct.** `sumERC4626VaultsExport` with `isOG4626: true` captures TVL through the full oracle chain.
 2. **V1 stBTC is fully deprecated.** No need to track it.
@@ -349,6 +404,9 @@ The `doublecounted: true` flag is essential because the same tBTC is counted by:
 - Acre contracts: https://docs.acre.fi/mainnet
 - Acre dApp source: https://github.com/acre-btc/acre
 - Acre dashboard: https://bitcoin.acre.fi/dashboard
+- CdC V2 security review (Aug 2025): https://drive.google.com/file/d/1dbK5gCyRQURiPJloJXZOTNLaowtaeMip/view
+- V1 audits: https://github.com/thesis/acre/tree/main/audits
+- Trail of Bits tBTC audit: https://github.com/trailofbits/publications/blob/master/reviews/thesis-tbtc-and-keep.pdf
 - acreBTC vault: https://etherscan.io/address/0x19531C886339dd28b9923d903F6B235C45396ded
 - V1 stBTC: https://etherscan.io/address/0xdF217EFD8f3ecb5E837aedF203C28c1f06854017
 - MidasAllocator: https://etherscan.io/address/0xD72b0C95398058345842499975171368d49659Bb
